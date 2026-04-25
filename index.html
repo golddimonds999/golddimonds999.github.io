@@ -1,43 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
   <title>Carson SMP Games</title>
 
   <link rel="icon" type="image/png" href="favicon.png">
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* TOP RIGHT JOIN BUTTON */
-    .join-btn {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background-color: black;
-      color: white;
-      border: 2px solid white;
-      padding: 10px 16px;
+    body {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 8px;
-      z-index: 9999;
-      transition: 0.2s ease;
+      margin: 0;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
-    .join-btn:hover {
-      background-color: white;
-      color: black;
+    /* JOIN BUTTON (bigger for iPad touch) */
+    .join-btn {
+      position: fixed;
+      top: calc(12px + env(safe-area-inset-top));
+      right: calc(12px + env(safe-area-inset-right));
+      background: black;
+      color: white;
+      border: 2px solid white;
+      padding: 14px 18px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 10px;
+      z-index: 9999;
+      transition: 0.2s ease;
+      font-size: 16px;
+    }
+
+    .join-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* GAME GRID OPTIMIZATION */
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      padding: 12px;
+    }
+
+    .game-card {
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #111;
+      transition: transform 0.15s ease;
+      will-change: transform;
+      user-select: none;
+    }
+
+    .game-card:active {
+      transform: scale(0.97);
+    }
+
+    .game-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      loading: lazy;
+    }
+
+    .game-title {
+      padding: 10px;
+      font-size: 14px;
+      color: white;
+      text-align: center;
+    }
+
+    /* POPUP */
+    .popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+
+    .popup-content {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: black;
+    }
+
+    /* Buttons bigger for touch */
+    .fullscreen-btn,
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      font-size: 22px;
+      padding: 10px;
+      z-index: 10001;
+      color: white;
+      background: rgba(0,0,0,0.5);
+      border-radius: 8px;
+    }
+
+    .fullscreen-btn {
+      right: 60px;
+    }
+
+    .close-btn {
+      right: 12px;
+    }
+
+    header {
+      text-align: center;
+      padding: 16px;
+    }
+
+    .subtitle a {
+      color: blue;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- JOIN BUTTON (CHANGE LINK HERE) -->
+  <!-- JOIN BUTTON -->
   <a class="join-btn" href="https://joincarsonsmp.github.io" target="_blank">
-    Join the Carson SMP!
+    Join Carson SMP
   </a>
 
   <header>
@@ -51,105 +152,114 @@
   </header>
 
   <!-- GAME GRID -->
-  <div class="games">
+<div class="games" id="gameGrid">
 
-    <div class="game-card" onclick="openGame('https://smapskajendfjshwbekf-prog.github.io/newcargame/')">
-      <img src="assets/polytrack.png">
-      <div class="game-title">Poly Track</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://smapskajendfjshwbekf-prog.github.io/eaglercraft/')">
-      <img src="assets/eaglercraft.png">
-      <div class="game-title">EaglerCraft</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://learnwithvortex.github.io/g/geodash/')">
-      <img src="assets/geometrydash.png">
-      <div class="game-title">Geometry Dash Lite</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://pleasedropkickme.github.io/games/games/driftboss/Drift%20Boss.html')">
-      <img src="assets/driftboss.png">
-      <div class="game-title">Drift Boss</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://pleasedropkickme.github.io/games/games/drivemad/Drive%20Mad.html')">
-      <img src="assets/drivemad.png">
-      <div class="game-title">Drive Mad</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://pleasedropkickme.github.io/games/games/drivemad2/drivemad2.html')">
-      <img src="assets/drive-mad-2.png">
-      <div class="game-title">Drive Mad 2</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://pleasedropkickme.github.io/games/games/smallcup/smallworldcup.html')">
-      <img src="assets/asmallworldcup.png">
-      <div class="game-title">A Small World Cup</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://pleasedropkickme.github.io/games/games/crossyroad/crossyroad.html')">
-      <img src="assets/crossyroad.png">
-      <div class="game-title">Crossy Road</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://pleasedropkickme.github.io/games/games/escaperoad/escaperoad.html')">
-      <img src="assets/escaperoad.png">
-      <div class="game-title">Escape Road</div>
-    </div>
-
-    <div class="game-card" onclick="openGame('https://pleasedropkickme.github.io/games/games/escaperoad2/escaperoad2.html')">
-      <img src="assets/escaperoad2.png">
-      <div class="game-title">Eascape Road 2</div>
-    </div>
-
+  <div class="game-card" data-url="https://smapskajendfjshwbekf-prog.github.io/newcargame/">
+    <img src="assets/polytrack.png" loading="lazy">
+    <div class="game-title">Poly Track</div>
   </div>
+
+  <div class="game-card" data-url="https://smapskajendfjshwbekf-prog.github.io/eaglercraft/">
+    <img src="assets/eaglercraft.png" loading="lazy">
+    <div class="game-title">EaglerCraft</div>
+  </div>
+
+  <div class="game-card" data-url="https://learnwithvortex.github.io/g/geodash/">
+    <img src="assets/geometrydash.png" loading="lazy">
+    <div class="game-title">Geometry Dash Lite</div>
+  </div>
+
+  <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/driftboss/Drift%20Boss.html">
+    <img src="assets/driftboss.png" loading="lazy">
+    <div class="game-title">Drift Boss</div>
+  </div>
+
+  <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/drivemad/Drive%20Mad.html">
+    <img src="assets/drivemad.png" loading="lazy">
+    <div class="game-title">Drive Mad</div>
+  </div>
+
+  <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/drivemad2/drivemad2.html">
+    <img src="assets/drive-mad-2.png" loading="lazy">
+    <div class="game-title">Drive Mad 2</div>
+  </div>
+
+  <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/smallcup/smallworldcup.html">
+    <img src="assets/asmallworldcup.png" loading="lazy">
+    <div class="game-title">A Small World Cup</div>
+  </div>
+
+  <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/crossyroad/crossyroad.html">
+    <img src="assets/crossyroad.png" loading="lazy">
+    <div class="game-title">Crossy Road</div>
+  </div>
+
+  <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/escaperoad/escaperoad.html">
+    <img src="assets/escaperoad.png" loading="lazy">
+    <div class="game-title">Escape Road</div>
+  </div>
+
+  <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/escaperoad2/escaperoad2.html">
+    <img src="assets/escaperoad2.png" loading="lazy">
+    <div class="game-title">Escape Road 2</div>
+  </div>
+
+</div>
 
   <!-- POPUP -->
   <div id="popup" class="popup">
     <div class="popup-content" id="popupContent">
 
-      <span class="fullscreen-btn" id="fsBtn" onclick="toggleFullscreen()">⛶</span>
-      <span class="close-btn" onclick="closeGame()">✖</span>
+      <span class="fullscreen-btn" id="fsBtn">⛶</span>
+      <span class="close-btn" id="closeBtn">✖</span>
 
-      <iframe id="gameFrame"></iframe>
+      <iframe id="gameFrame" loading="lazy"></iframe>
     </div>
   </div>
 
   <script>
+    const popup = document.getElementById("popup");
+    const frame = document.getElementById("gameFrame");
+    const fsBtn = document.getElementById("fsBtn");
+    const closeBtn = document.getElementById("closeBtn");
+
+    // EVENT DELEGATION (faster than many onclicks)
+    document.getElementById("gameGrid").addEventListener("click", (e) => {
+      const card = e.target.closest(".game-card");
+      if (!card) return;
+
+      const url = card.dataset.url;
+      openGame(url);
+    });
+
     function openGame(url) {
-      document.getElementById("popup").style.display = "flex";
-      document.getElementById("gameFrame").src = url;
+      popup.style.display = "flex";
+      frame.src = url;
     }
 
     function closeGame() {
-      document.getElementById("popup").style.display = "none";
-      document.getElementById("gameFrame").src = "";
-      exitFullscreen();
+      popup.style.display = "none";
+      frame.src = "";
     }
 
+    // iOS SAFE FULLSCREEN FALLBACK
     function toggleFullscreen() {
       const elem = document.getElementById("popupContent");
 
-      if (!document.fullscreenElement) {
-        elem.requestFullscreen();
-        document.getElementById("fsBtn").textContent = "🡼";
-      } else {
+      if (!document.fullscreenElement && elem.requestFullscreen) {
+        elem.requestFullscreen().catch(() => {
+          // fallback silently (iOS may block)
+          popup.style.position = "fixed";
+          popup.style.width = "100%";
+          popup.style.height = "100%";
+        });
+      } else if (document.exitFullscreen) {
         document.exitFullscreen();
-        document.getElementById("fsBtn").textContent = "⛶";
       }
     }
 
-    function exitFullscreen() {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      }
-      document.getElementById("fsBtn").textContent = "⛶";
-    }
-
-    window.onload = () => {
-      document.body.classList.add("loaded");
-    };
+    fsBtn.addEventListener("click", toggleFullscreen);
+    closeBtn.addEventListener("click", closeGame);
   </script>
 
 </body>
