@@ -81,6 +81,39 @@
       <div class="game-title">Escape Road 2</div>
     </div>
 
+    <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/coreball/coreball.html">
+      <img src="assets/coreball.png">
+      <div class="game-title">Core Ball</div>
+    </div>
+
+    <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/bitlife/bitlife.html">
+      <img src="assets/bitlife.png">
+      <div class="game-title">Bit Life</div>
+    </div>
+
+    <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/blockblast/blockblast.html">
+      <img src="assets/blockblast.png">
+      <div class="game-title">Block Blast</div>
+    </div>
+
+    <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/retrobowl/retrobowl.html">
+      <img src="assets/retrobowl.png">
+      <div class="game-title">Retro Bowl</div>
+    </div>
+
+    <div class="game-card" data-url="https://pleasedropkickme.github.io/games/games/retrobowlcollege/retrobowlcollege.html">
+      <img src="assets/retrobowlcollege.png">
+      <div class="game-title">Retro Bowl College</div>
+    </div>
+
+    <div class="game-card empty">
+      <div class="game-title">Game in progress!</div>
+    </div>
+
+    <div class="game-card empty">
+      <div class="game-title">Game in progress!</div>
+    </div>
+
   </div>
 
   <!-- POPUP -->
@@ -98,7 +131,7 @@
 
     document.getElementById("gameGrid").addEventListener("click", (e) => {
       const card = e.target.closest(".game-card");
-      if (!card) return;
+      if (!card || !card.dataset.url) return;
 
       popup.style.display = "flex";
       frame.src = card.dataset.url;
@@ -111,7 +144,6 @@
 
     document.getElementById("fsBtn").onclick = () => {
       const el = document.querySelector(".popup-content");
-
       if (!document.fullscreenElement && el.requestFullscreen) {
         el.requestFullscreen().catch(() => {});
       } else {
