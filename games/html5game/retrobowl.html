@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-
-<title>Retro Bowl</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
   body {
@@ -35,17 +33,14 @@
   resize();
 </script>
 
-<!-- KEEP THIS PATH CORRECT -->
+<!-- KEEP THIS EXACT -->
 <script src="html5game/RetroBowl.js"></script>
 
 <script>
-  // Delay slightly (fixes iPad freeze) BUT not too much
   window.onload = function () {
     setTimeout(() => {
       if (typeof GameMaker_Init === "function") {
         GameMaker_Init();
-      } else {
-        console.error("GameMaker_Init not found");
       }
     }, 100);
   };
